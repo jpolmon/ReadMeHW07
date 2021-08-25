@@ -1,4 +1,6 @@
 const moment = require('moment');
+const fs = require('fs');
+
 
 // TODO: Create a function that returns a license badge based on which license is passed in
 // If there is no license, return an empty string
@@ -80,15 +82,32 @@ ${renderLicenseLink(license)}`;
   }
 }
 
+function imgCheck(img) {
+  
+  let check;
+  
+  try {
+    fs.accessSync(img, fs.constants.F_OK);
+    check = true;
+  } catch (err) {
+    check = false;
+  }
+
+  return check;
+}
+
 function renderImg(confirm) {
-  if (confirm == true) {
-    return `</br></br> ![Website image](../assets/images/WebPageImage.png)`;
+    
+  let path = './assets/images/WebPageImage.png';
+  let verifyImg = imgCheck(path);
+
+  if (confirm && verifyImg) {
+    return `</br></br> ![Website image](${path})`;
   }
   else {
     return ``;
   }
 }
-
 
 // TODO: Create a function to generate markdown for README
 function generateMarkdown(response) {

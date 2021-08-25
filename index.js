@@ -4,7 +4,7 @@ const fs = require('fs');
 const generateMarkdown = require('./utils/generateMarkdown');
 
 // TODO: Create an array of questions for user input
-const questions = ['Please provide your github username', 'Please provide your email', 'Please provide your project title.', 'Please provide a brief description of the project.', 'Do you have an image you would like to include? (Please ensure it is named WebPageImage.png and located in the images folder)', 'Please provide the project installation instructions.', 'Please provide some useful usage information for the project.', 'Please provide instructions for contributing to the project.', 'Please provide project testing instructions.', 'What license does this project fall under?', 'If you selected a license type, who does the licence belong to?'];
+const questions = ['Please provide your github username', 'Please provide your email', 'Please provide your project title.', 'Please provide a brief description of the project.', 'Do you have an image you would like to include? (Please ensure it is named WebPageImage.png and located in the images folder)', 'Please provide the project installation instructions.', 'Please provide some useful usage information for the project.', 'Please provide instructions for contributing to the project.', 'Please provide project testing instructions.', 'What license does this project fall under?', 'If you selected a license type, who does the licence belong to? (If not you can just press Enter)'];
 
 // TODO: Create a function to write README file
 function writeToFile(fileName, data) {
