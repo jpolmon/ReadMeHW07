@@ -4,7 +4,7 @@ const fs = require('fs');
 const generateMarkdown = require('./utils/generateMarkdown');
 
 // TODO: Create an array of questions for user input
-const questions = ['Please provide your github username', 'Please provide your email', 'Please provide your project title.', 'Please provide a brief description of the project.', 'Please provide the project installation instructions.', 'Please provide some useful usage information for the project.', 'Please provide instructions for contributing to the project.', 'Please provide project testing instructions.', 'What license does this project fall under?', 'Who does the licence belong to?'];
+const questions = ['Please provide your github username', 'Please provide your email', 'Please provide your project title.', 'Please provide a brief description of the project.', 'Do you have an image you would like to include? (Please ensure it is named WebPageImage.png and located in the images folder)', 'Please provide the project installation instructions.', 'Please provide some useful usage information for the project.', 'Please provide instructions for contributing to the project.', 'Please provide project testing instructions.', 'What license does this project fall under?', 'If you selected a license type, who does the licence belong to?'];
 
 // TODO: Create a function to write README file
 function writeToFile(fileName, data) {
@@ -36,34 +36,39 @@ function init() {
             name: 'desc',
             },
             {
-            type: 'input',
+            type: 'confirm',
             message: questions[4],
+            name: 'imgConfirm',
+            },            
+            {
+            type: 'input',
+            message: questions[5],
             name: 'install',
             },
             {
             type: 'input',
-            message: questions[5],
+            message: questions[6],
             name: 'usage',
             },
             {
             type: 'input',
-            message: questions[6],
+            message: questions[7],
             name: 'contrib',
             },
             {
             type: 'input',
-            message: questions[7],
+            message: questions[8],
             name: 'test',
             },
             {
             type: 'list',
-            message: questions[8],
+            message: questions[9],
             name: 'license',
             choices: ['MIT', 'Apache 2.0', '3-clause BSD', 'None']
             },
             {
             type: 'input',
-            message: questions[9],
+            message: questions[10],
             name: 'name',
             },
         ])
