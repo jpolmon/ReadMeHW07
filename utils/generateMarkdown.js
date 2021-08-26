@@ -37,7 +37,10 @@ function renderLicenseLink(license) {
 function renderLicenseSection(license, name) {
   switch (license) {
     case 'MIT':
-      return `Copyright ${moment().format('YYYY')} ${name}
+      return `<a id="license"></a>
+## License
+
+Copyright ${moment().format('YYYY')} ${name}
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
       
@@ -48,7 +51,10 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 ${renderLicenseLink(license)}`;
     
     case 'Apache 2.0':
-      return `   Copyright ${moment().format('YYYY')} ${name}
+      return `<a id="license"></a>
+## License
+
+Copyright ${moment().format('YYYY')} ${name}
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -63,7 +69,10 @@ See the License for the specific language governing permissions and
 limitations under the License.`;
     
     case '3-clause BSD':
-      return `Copyright ${moment().format('YYYY')} ${name}
+      return `<a id="license"></a>
+## License
+
+Copyright ${moment().format('YYYY')} ${name}
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
 
@@ -102,68 +111,144 @@ function renderImg(confirm) {
   let verifyImg = imgCheck(path);
 
   if (confirm && verifyImg) {
-    return `</br></br> ![Website image](${path})`;
+    return `</br></br> ![Website image](.${path})`;
   }
   else {
     return ``;
   }
 }
 
+function renderContents(response) {
+  
+  let tocOptions = ['Description', 'Installation', 'Usage', 'Contributing', 'Testing', 'Questions', 'License'];
+  let toc = ``;
+  let i = 1;
+
+  Object.keys(response).forEach(key => {
+    if (tocOptions.includes(key) && response[key]) {
+      toc = toc + `
+${i}. [${key}](#${key.toLowerCase()})`;
+      i++;
+    }
+    else if ((key === 'email' && response[key] && !toc.includes('Questions')) || (key === 'github' && response[key] && !toc.includes('Questions'))) {
+      toc = toc + `
+${i}. [Questions](#questions)`;
+      i++;
+    }    
+  });
+
+  return toc;
+}
+
+function renderDesc(desc) {
+  if (desc) {
+    return `<a id="description"></a> 
+## Description 
+${desc}`
+  }
+  else { return ``;
+  }
+}
+
+function renderInstall(install) {
+  if (install) {
+    return `<a id="installation"></a> 
+## Installation 
+${install}
+
+---`
+  }
+  else { return ``;
+  }
+}
+
+function renderUsage(usage) {
+  if (usage) {
+    return `<a id="usage"></a> 
+## Usage 
+${usage}
+
+---`
+  }
+  else { return ``;
+  }
+}
+
+function renderContrib(contrib) {
+  if (contrib) {
+    return `<a id="contributing"></a> 
+## Contributing
+${contrib}
+
+---`
+  }
+  else { return ``;
+  }
+}
+
+function renderTest(test) {
+  if (test) {
+    return `<a id="testing"></a> 
+## Testing 
+${test}
+
+---`
+  }
+  else { return ``;
+  }
+}
+function renderQues(github, email) {
+  if (github && email) {
+    return `<a id="questions"></a> 
+## Questions
+If you have any questions please reach out to me at github.com/${github} or via email at ${email}.
+
+---`
+  }
+  else if (email) {
+    return `<a id="ques"></a> 
+## Questions
+If you have any questions please reach out to me via email at ${email}.
+
+---`
+  }
+  else if (github) {
+    return `<a id="ques"></a> 
+## Questions
+If you have any questions please reach out to me via github at github.com/${github}.
+
+---`
+  }
+  else { return ``;
+  }
+}
+
 // TODO: Create a function to generate markdown for README
 function generateMarkdown(response) {
-  return `# ${response.title}  <div>${renderLicenseBadge(response.license)}</div>
-  
-## Table of Contents
-1. [Description](#desc) 
-2. [Installation](#install)
-3. [Usage](#usage)
-4. [Contributing](#contrib)
-5. [Testing](#testing)
-6. [Questions](#ques)
-7. [License](#license)
+  return `# ${response.title}  <div>${renderLicenseBadge(response.License)}</div>
+ 
 
+## Table of Contents
+
+${renderContents(response)}
 ---
 
-<a id="desc"></a> 
-## Description 
-${response.desc} 
+${renderDesc(response.Description)} 
 ${renderImg(response.imgConfirm)}
 
 ---
 
-<a id="install"></a> 
-## Installation 
-${response.install}
+${renderInstall(response.Installation)}
 
----
+${renderUsage(response.Usage)}
 
-<a id="usage"></a> 
-## Usage 
-${response.usage}
+${renderContrib(response.Contributing)}
 
----
+${renderTest(response.Testing)}
 
-<a id="contrib"></a> 
-## Contributing 
-${response.contrib}
+${renderQues(response.github, response.email)}
 
----
-
-<a id="testing"></a> 
-## Testing 
-${response.test}
-
----
-
-<a id="ques"></a> 
-## Questions 
-If you have any questions please reach out to me at github.com/${response.github} or via email at ${response.email}.
-
----
-
-<a id="license"></a>
-## License
-${renderLicenseSection(response.license, response.name)}
+${renderLicenseSection(response.License, response.name)}
 
 `;
 }

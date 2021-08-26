@@ -17,23 +17,13 @@ function init() {
         .prompt([
             {
             type: 'input',
-            message: questions[0],
-            name: 'github',
-            },
-            {
-            type: 'input',
-            message: questions[1],
-            name: 'email',
-            },
-            {
-            type: 'input',
             message: questions[2],
             name: 'title',
             },
             {
             type: 'input',
             message: questions[3],
-            name: 'desc',
+            name: 'Description',
             },
             {
             type: 'confirm',
@@ -43,27 +33,37 @@ function init() {
             {
             type: 'input',
             message: questions[5],
-            name: 'install',
+            name: 'Installation',
             },
             {
             type: 'input',
             message: questions[6],
-            name: 'usage',
+            name: 'Usage',
             },
             {
             type: 'input',
             message: questions[7],
-            name: 'contrib',
+            name: 'Contributing',
             },
             {
             type: 'input',
             message: questions[8],
-            name: 'test',
+            name: 'Testing',
+            },
+            {
+            type: 'input',
+            message: questions[0],
+            name: 'github',
+            },
+            {
+            type: 'input',
+            message: questions[1],
+            name: 'email',
             },
             {
             type: 'list',
             message: questions[9],
-            name: 'license',
+            name: 'License',
             choices: ['MIT', 'Apache 2.0', '3-clause BSD', 'None']
             },
             {
