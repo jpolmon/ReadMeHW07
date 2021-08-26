@@ -48,7 +48,9 @@ The above copyright notice and this permission notice shall be included in all c
       
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-${renderLicenseLink(license)}`;
+${renderLicenseLink(license)}
+
+---`;
     
     case 'Apache 2.0':
       return `<a id="license"></a>
@@ -66,7 +68,9 @@ Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
-limitations under the License.`;
+limitations under the License.
+
+---`;
     
     case '3-clause BSD':
       return `<a id="license"></a>
@@ -84,13 +88,16 @@ Redistribution and use in source and binary forms, with or without modification,
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-${renderLicenseLink(license)}`;
+${renderLicenseLink(license)}
+
+---`;
     
     default:
       return '';
   }
 }
 
+// Verifies that the image is saved correctly.
 function imgCheck(img) {
   
   let check;
@@ -105,6 +112,7 @@ function imgCheck(img) {
   return check;
 }
 
+// Displays the image on the page.
 function renderImg(confirm) {
     
   let path = './assets/images/WebPageImage.png';
@@ -118,9 +126,10 @@ function renderImg(confirm) {
   }
 }
 
+// Generates the table of contents based on user inputs.
 function renderContents(response) {
   
-  let tocOptions = ['Description', 'Installation', 'Usage', 'Contributing', 'Testing', 'Questions', 'License'];
+  let tocOptions = ['Description', 'Installation', 'Usage', 'Contributing', 'Testing', 'Questions'];
   let toc = ``;
   let i = 1;
 
@@ -129,6 +138,10 @@ function renderContents(response) {
       toc = toc + `
 ${i}. [${key}](#${key.toLowerCase()})`;
       i++;
+    }
+    else if (key === 'License' && response[key] != 'None') {
+      toc = toc + `
+${i}. [License](#license)`;
     }
     else if ((key === 'email' && response[key] && !toc.includes('Questions')) || (key === 'github' && response[key] && !toc.includes('Questions'))) {
       toc = toc + `
@@ -140,6 +153,7 @@ ${i}. [Questions](#questions)`;
   return toc;
 }
 
+// Generates the description section.
 function renderDesc(desc) {
   if (desc) {
     return `<a id="description"></a> 
@@ -150,6 +164,7 @@ ${desc}`
   }
 }
 
+// Generates the installation section.
 function renderInstall(install) {
   if (install) {
     return `<a id="installation"></a> 
@@ -162,6 +177,7 @@ ${install}
   }
 }
 
+// Generates the usage section.
 function renderUsage(usage) {
   if (usage) {
     return `<a id="usage"></a> 
@@ -174,6 +190,7 @@ ${usage}
   }
 }
 
+// Generates the contribution section.
 function renderContrib(contrib) {
   if (contrib) {
     return `<a id="contributing"></a> 
@@ -186,6 +203,7 @@ ${contrib}
   }
 }
 
+// Generates the testing section.
 function renderTest(test) {
   if (test) {
     return `<a id="testing"></a> 
@@ -197,6 +215,8 @@ ${test}
   else { return ``;
   }
 }
+
+// Generates the question section based on user inputs.
 function renderQues(github, email) {
   if (github && email) {
     return `<a id="questions"></a> 
